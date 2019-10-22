@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="/style.css" />
 
     <!-- import the webpage's javascript file -->
-    <script src="/script.js" defer></script>
     <style>
-      #main {
+      body {
         text-align: center;
         margin-top: 50px;
         font-size: 32;
@@ -25,11 +24,16 @@
       is it winter break yet?
     </h1>
     <div id="main"></div>
+    <div></div>
+    <div>Starts <span id="start"></span></div>
+    <div>Ends <span id="end"></span></div>
   </body>
   <script>
     window.onload = async function() {
       let main = document.querySelector("#main");
-      let response = await fetch("https://europe-west1-winter-break.cloudfunctions.net/IsItTheWinterBreakYet");
+      let response = await fetch(
+        "https://europe-west1-winter-break.cloudfunctions.net/IsItTheWinterBreakYet"
+      );
       let isitJson = await response.json();
       console.log(JSON.stringify(isitJson));
       let isit = isitJson.is_winter_break_yet;
@@ -37,6 +41,17 @@
         main.innerHTML = "YES";
       } else {
         main.innerHTML = "NO";
+      }
+      if (!isitJson.winter_break) {
+        return;
+      }
+      let start = new Date(Date.parse(isitJson.winter_break.start_time));
+      if (start) {
+        document.getElementById("start").innerHTML = start.toLocaleDateString();
+      }
+      let end = new Date(Date.parse(isitJson.winter_break.end_time));
+      if (end) {
+        document.getElementById("end").innerHTML = end.toLocaleDateString();
       }
     };
   </script>
