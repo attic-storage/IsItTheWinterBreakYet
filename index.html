@@ -27,20 +27,17 @@
     <div id="main"></div>
   </body>
   <script>
-    var main = document.querySelector("#main");
-    async function blah() {
-      let response = await fetch(
-        "https://europe-west1-winter-break.cloudfunctions.net/IsItTheWinterBreakYet"
-      );
+    window.onload = async function() {
+      let main = document.querySelector("#main");
+      let response = await fetch("https://europe-west1-winter-break.cloudfunctions.net/IsItTheWinterBreakYet");
       let isitJson = await response.json();
-      return isitJson;
-    }
-    let isitJson = blah();
-    let isit = isitJson.is_winter_break_yet;
-    if (isit) {
-      main.innerHTML = "YES";
-    } else {
-      main.innerHTML = "NO";
-    }
+      console.log(JSON.stringify(isitJson));
+      let isit = isitJson.is_winter_break_yet;
+      if (isit) {
+        main.innerHTML = "YES";
+      } else {
+        main.innerHTML = "NO";
+      }
+    };
   </script>
 </html>
