@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello!</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+    <style>
+      #main {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 32;
+        font-family: Helvetica, Arial;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      is it winter break yet?
+    </h1>
+    <div id="main"></div>
+  </body>
+  <script>
+    var main = document.querySelector("#main");
+    async function blah() {
+      let response = await fetch(
+        "https://europe-west1-winter-break.cloudfunctions.net/IsItTheWinterBreakYet"
+      );
+      let isitJson = await response.json();
+      return isitJson;
+    }
+    let isitJson = blah();
+    let isit = isitJson.is_winter_break_yet;
+    if (isit) {
+      main.innerHTML = "YES";
+    } else {
+      main.innerHTML = "NO";
+    }
+  </script>
+</html>
