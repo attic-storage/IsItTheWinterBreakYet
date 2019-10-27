@@ -1,4 +1,4 @@
-= Is it the winter break yet
+= Is it the winter break yet ?
 
 == Deployment
 
@@ -8,7 +8,7 @@
 
 [source,shell]
 ----
-$ curl -sL bit.ly/is-it-winter-break-yet | jq
+$ make run-function
 {
   "is_winter_break_yet": "true",
   "winter_break": {
@@ -16,4 +16,10 @@ $ curl -sL bit.ly/is-it-winter-break-yet | jq
     "end_time": "2020-04-12T23:00:00Z"
   }
 }
+----
+
+[source,shell]
+----
+$ make run-frontpage
+... will open the front page ...
 ----

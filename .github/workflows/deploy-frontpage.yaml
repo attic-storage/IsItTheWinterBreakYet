@@ -1,0 +1,25 @@
+name: deploy-frontpage
+on:
+  push:
+    branches:    
+      - master
+
+jobs:
+  
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out code
+      uses: actions/checkout@v1
+
+    - name: Configure Google Cloud
+      env:
+        GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+      run: |
+        echo "$GCLOUD_AUTH" | base64 --decode > "$HOME"/gcloud.json
+        gcloud auth activate-service-account --key-file=$HOME/gcloud.json
+
+    - name: Deploy frontpage to Google Storage
+      run: make deploy-frontpage

@@ -25,14 +25,13 @@
     </h1>
     <div id="main"></div>
     <div></div>
-    <div>Starts <span id="start"></span></div>
-    <div>Ends <span id="end"></span></div>
+    <div>from <span id="start"></span> till <span id="end"></span>.</div>
   </body>
   <script>
     window.onload = async function() {
       let main = document.querySelector("#main");
       let response = await fetch(
-        "https://europe-west1-winter-break.cloudfunctions.net/IsItTheWinterBreakYet"
+        "FUNCTION_URL"
       );
       let isitJson = await response.json();
       console.log(JSON.stringify(isitJson));
