@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Hello!</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <head>
+        <title>Is it winter break?</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
+        <!-- import the webpage's stylesheet -->
+        <link rel="stylesheet" href="style.css" />
 
-    <!-- import the webpage's javascript file -->
-    <style>
-      body {
-        text-align: center;
-        margin-top: 50px;
-        font-size: 32;
-        font-family: Helvetica, Arial;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>
-      is it winter break yet?
-    </h1>
-    <div id="main"></div>
-    <div></div>
-    <div>from <span id="start"></span> till <span id="end"></span>.</div>
-  </body>
-  <script>
-    window.onload = async function() {
-      let main = document.querySelector("#main");
-      let response = await fetch(
-        "FUNCTION_URL"
-      );
-      let isitJson = await response.json();
-      console.log(JSON.stringify(isitJson));
-      let isit = isitJson.is_winter_break_yet;
-      if (isit) {
-        main.innerHTML = "YES";
-      } else {
-        main.innerHTML = "NO";
-      }
-      if (!isitJson.winter_break) {
-        return;
-      }
-      let start = new Date(Date.parse(isitJson.winter_break.start_time));
-      if (start) {
-        document.getElementById("start").innerHTML = start.toLocaleDateString();
-      }
-      let end = new Date(Date.parse(isitJson.winter_break.end_time));
-      if (end) {
-        document.getElementById("end").innerHTML = end.toLocaleDateString();
-      }
-    };
-  </script>
+    </head>
+    <body>
+        <div class="content">
+            <h1>Is it winter break yet?</h1>
+            <h2 id="main"></h2>
+            <p>from <span id="start"></span> till <span id="end"></span></p>
+            <a class="winter-version unsplash-badge" style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;border-radius:3px" href="https://unsplash.com/@k1n1m0de?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Dominik Dombrowski"><span style="padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="padding:2px 3px">Dominik Dombrowski</span></a>
+            <a class="summer-version unsplash-badge" style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;border-radius:3px" href="https://unsplash.com/@sappulegacy?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Hussain Matheen"><span style="padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="padding:2px 3px">Hussain Matheen</span></a>
+        </div>
+    </body>
+    <script>
+        window.onload = async function() {
+            let answer = document.querySelector("#main");
+            let body = document.querySelector("body");
+            let response = await fetch(
+                "FUNCTION_URL"
+            );
+            let isitJson = await response.json();
+            console.log(JSON.stringify(isitJson));
+            let isit = isitJson.is_winter_break_yet;
+            if (isit) {
+                answer.innerHTML = "YES";
+                answer.style.color = "#64d8cb";
+                body.style.backgroundImage = "url(winter.jpg)";
+                document.querySelector(".winter-version").style.display = "block";
+            } else {
+                answer.innerHTML = "NO";
+                answer.style.color = "#64d8cb";
+                body.style.backgroundImage = "url(summer.jpg)";
+                document.querySelector(".summer-version").style.display = "block";
+            }
+            if (!isitJson.winter_break) {
+                return;
+            }
+            let start = new Date(Date.parse(isitJson.winter_break.start_time));
+            if (start) {
+                document.getElementById("start").innerHTML = start.toLocaleDateString();
+            }
+            let end = new Date(Date.parse(isitJson.winter_break.end_time));
+            if (end) {
+                document.getElementById("end").innerHTML = end.toLocaleDateString();
+            }
+        };
+    </script>
 </html>
